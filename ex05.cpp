@@ -47,7 +47,7 @@ Lista* inserir(Lista* list, int valor)
 		{
 			 aux = aux->prox;
 		}
-		// ajustando o valor do novo->prox
+		// ajustando o valor dos ponteiros prox e ant...
 		novo->prox = aux->prox;
 		novo->ant = aux;
 		aux->prox = novo;
