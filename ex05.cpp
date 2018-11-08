@@ -66,6 +66,7 @@ Lista* inserir(Lista* list, int valor)
 		novo->ant->prox = novo;
 		
 		cout << "Caso de elemento menor no inicio." << endl;
+		
 	}
 	else
 	{
@@ -77,6 +78,8 @@ Lista* inserir(Lista* list, int valor)
 			aux = aux->prox;
 			//cout << "valor do aux atual: " << aux->info << endl;
 		}
+		cout << endl;
+		
 		novo->prox = aux->prox;
 		//cout << "valor do aux->prox->info: " << aux->prox->info << endl;
 		novo->prox->ant = novo;
@@ -86,26 +89,27 @@ Lista* inserir(Lista* list, int valor)
 		
 
 		
-		aux = novo;
-		while(aux->info >= aux->prox->info)
+		//aux = novo;
+		//while(aux->info >= aux->prox->info)
 		{
-			aux = aux->prox;
+		//	aux = aux->prox;
 			//cout << "Valor atual do aux: " << aux->info << endl;
 		}
 		//cout << "imprimindo lista aux:" << endl;
 
 		//imprimirInicioFim(aux);
 		
-		novo = aux;
-		//imprimirInicioFim(novo);
+		//novo = aux;
 		//cout << novo->info << endl;
 		//cout << novo->ant->info << endl;
 		//cout << novo->ant->ant->info << endl;
 		
 		
 		cout << "Caso do elemento maior no inicio" << endl;
+		
+		return list;
 	}
-	imprimirInicioFim(novo);
+	
 	return novo;
 }
 
@@ -119,6 +123,11 @@ int main(int argc, char** argv)
 	ml = inserir(ml, 7);	
 	ml = inserir(ml, 7);	
 	ml = inserir(ml, 2);
+	ml = inserir(ml, 5);
+	ml = inserir(ml, 8);
+	ml = inserir(ml, 3);
+	ml = inserir(ml, 10);
+	imprimirInicioFim(ml);
 	
 	return 0;
 }
