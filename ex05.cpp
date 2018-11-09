@@ -4,15 +4,15 @@ using namespace std;
 
 typedef struct No
 {
-    int info;
-    struct No* ant;
-    struct No* prox;
+	int info;
+	struct No* ant;
+	struct No* prox;
 } Lista;
 
 Lista* criar()
 {
-    // CriaÃ§Ã£o da lista
-    return NULL;
+	// CriaÃ§Ã£o da lista
+	return NULL;
 }
 
 bool isEmpty(Lista* list)
@@ -20,58 +20,87 @@ bool isEmpty(Lista* list)
 	return list == NULL;
 }
 
-bool isHere(Lista* list, int value) {
-	bool here;
-	
-	Lista* inicio = list;
-	Lista* aux = inicio;
-	do {
-		here = aux->info == value;
-		aux = aux->prox;
-	} while(aux != inicio);
-	
-	return here;
+bool isHere(Lista* list, int value)
+{
+	if(isEmpty(list))
+	{
+		cout << "-----------------------" << endl;
+		cout << "Lista vazia" << endl;
+		cout << "-----------------------" << endl;
+
+		return false;
+	}
+	else
+	{
+		Lista* inicio = list;
+		Lista* aux = inicio;
+		do
+		{
+			if (aux->info == value)
+				return true;
+			aux = aux->prox;
+		}
+		while (aux != inicio);
+		return false;
+	}
+
 }
 
 void imprimirInicioFim(Lista* list)
 {
 	if (isEmpty(list))
 	{
+		cout << "-----------------------" << endl;
 		cout << "Lista vazia" << endl;
+		cout << "-----------------------" << endl;
 		return;
 	};
-	cout << "Imprimindo lista do inicio ao fim" << endl << endl;
+	cout << "-----------------------" << endl;
+	cout << "Imprimindo lista do inicio ao fim" << endl;
+	cout << "-----------------------" << endl;
+
 	Lista* inicio = list;
-    // e percorre a lista enquanto o elemento atual nÃ£o for nulo
-    Lista* aux = inicio;
-    do {
-        cout << aux->info << endl;
-        aux = aux->prox;
-    } while (aux != inicio);
-    cout << endl;
-    
-    return;
+	// e percorre a lista enquanto o elemento atual nÃ£o for nulo
+	Lista* aux = inicio;
+	cout << "-----------------------" << endl;
+	do
+	{
+		cout << aux->info << endl;
+		aux = aux->prox;
+	}
+	while (aux != inicio);
+	cout << "-----------------------" << endl;
+	cout << endl;
+
+	return;
 }
 
 void imprimirFimInicio(Lista* list)
 {
 	if (isEmpty(list))
 	{
+		cout << "-----------------------" << endl;
 		cout << "Lista vazia" << endl;
+		cout << "-----------------------" << endl;
 		return;
 	};
-	cout << "Imprimindo lista do fim ao inicio" << endl << endl;
+	cout << "-----------------------" << endl;
+	cout << "Imprimindo lista do fim ao inicio" << endl;
+	cout << "-----------------------" << endl;
 	Lista* inicio = list;
-    // e percorre a lista enquanto o elemento atual nÃ£o for nulo
-    Lista* aux = inicio;
-    aux = aux->ant;
-    do {
-        cout << aux->info << endl;
-        aux = aux->ant;
-    } while (aux != inicio);
-    cout << endl;
-    
-    return;
+	// e percorre a lista enquanto o elemento atual nÃ£o for nulo
+	Lista* aux = inicio;
+	aux = aux->ant;
+	do
+	{
+		cout << aux->info << endl;
+		aux = aux->ant;
+	}
+	while (aux != inicio->ant);
+	cout << "-----------------------" << endl;
+	cout << endl;
+
+	return;
 }
 
 Lista* inserir(Lista* list, int valor)
@@ -81,21 +110,23 @@ Lista* inserir(Lista* list, int valor)
 	novo->info = valor;
 	cout << "-----------------------" << endl;
 	cout << "Inserindo novo valor: " << novo->info << endl;
-	
+	cout << "-----------------------" << endl;
 	// Casos
 	if(list == NULL)
 	{
 		// Caso 1 lista vazia
-		
+
 		novo->prox = novo;
 		novo->ant = novo;
-		
+
+		cout << "-----------------------" << endl;
 		cout << "Lista vazia. Criando novo elemento." << endl;
+		cout << "-----------------------" << endl;
 	}
 	else if(valor < list->info)
 	{
 		// Caso 2 valor do novo->info menor que o list->info
-		
+
 		novo->prox = list;
 		novo->prox->ant = novo;
 
@@ -106,75 +137,114 @@ Lista* inserir(Lista* list, int valor)
 		}
 		novo->ant = aux;
 		novo->ant->prox = novo;
-		
+
+		cout << "-----------------------" << endl;
 		cout << "Caso de elemento menor no inicio." << endl;
-		
+		cout << "-----------------------" << endl;
 	}
 	else
 	{
 		// Caso 3 - valores iniciais maiores que o valor
-		
+
 		Lista* aux = list;
+
 		while(aux->prox != list && aux->prox->info < valor)
 		{
 			aux = aux->prox;
 		}
 		cout << endl;
-		
+
 		novo->prox = aux->prox;
 		novo->prox->ant = novo;
 		novo->ant = aux;
 		novo->ant->prox = novo;
 
+		cout << "-----------------------" << endl;
 		cout << "Caso do elemento maior no inicio" << endl;
-		
+		cout << "-----------------------" << endl;
+
 		return list;
 	}
-	
+
 	return novo;
 }
 
 Lista* remover(Lista* list, int valor)
 {
-	if(list == NULL)
+	if (list == NULL)
 	{
-		// Caso 1 - Lista vazia
-		
-		cout << "Nada para remover!" << endl;
-		
-		return list;
+		cout << "-----------------------" << endl;
+		cout << "Lista Vazia! Nada para remover" << endl;
+		cout << "-----------------------" << endl;
+		return NULL;
 	}
-	else if(valor == list->info)
+
+	else if (list->info == valor)
 	{
-		list->prox->ant = list->ant;
-		list->ant->prox = list->prox;
-		
-		return list->prox;
+
+		if (list->prox == list)
+		{
+			cout << "-----------------------" << endl;
+			cout << "Elemento Removido com Sucesso!" << endl;
+			cout << "-----------------------" << endl;
+			delete list;
+			return NULL;
+		}
+
+		else
+		{
+
+			Lista* aux = list;
+			while (aux->prox != list)
+				aux = aux->prox;
+
+			aux->prox = list->prox;
+
+			delete list;
+			cout << "-----------------------" << endl;
+			cout << "Elemento Removido com Sucesso!" << endl;
+			cout << "-----------------------" << endl;
+
+			return aux->prox;
+		}
 	}
-	else if(isHere(list, valor))
-	{
-		cout << "Elemento nao encontrado" << endl;
-		return list;
-	}
+
 	else
 	{
-		Lista* aux = list;
-		while(aux->prox != list && aux->prox->info != valor)
+		Lista* inicio = list;
+		Lista* atual = list;
+		Lista* anterior = NULL;
+
+
+		do
 		{
-			aux = aux->prox;
-			//cout << aux->info << endl;
+			anterior = atual;
+			atual = atual->prox;
+			if(atual->info == valor)
+			{
+				cout << "-----------------------" << endl;
+				cout << "Elemento Removido com Sucesso!" << endl;
+				cout << "-----------------------" << endl;
+			}
+			else if(atual == inicio)
+			{
+				cout << "-----------------------" << endl;
+				cout << "Elemento NAO encontrado!" << endl;
+				cout << "-----------------------" << endl;
+			}
 		}
-		aux = aux->prox;
-		aux->prox->ant = aux->ant;
-		aux->ant->prox = aux->prox;
-	
-		while(aux->prox != list)
+		while (atual != inicio && atual->info != valor);
+
+		if (atual != inicio)
 		{
-			aux = aux->prox;
+			anterior->prox = atual->prox;
+			delete atual;
 		}
-		
-		return aux->prox;
-	}		
+
+
+
+		return list;
+	}
 }
 
 void menu()
@@ -182,15 +252,16 @@ void menu()
 	bool sair = false;
 	int opcao;
 	int valor;
-	
+
 	cout << "--------------" << endl;
 	cout << "Uma lista nula foi criada!" << endl;
 	cout << "--------------" << endl;
-		
+
 	Lista* l = criar();
-		
+
 	while(!sair)
 	{
+		cout << "--------------" << endl;
 		cout << "MENU" << endl;
 		cout << "1. Inserir novo elemento para lista" << endl;
 		cout << "2. Remover elemento da lista" << endl;
@@ -207,13 +278,13 @@ void menu()
 			// 1. Inserir novo elemento para lista
 			cout << "Insira o valor do novo elemento: ";
 			cin >> valor;
-			inserir(l, valor);
+			l = inserir(l, valor);
 			break;
 		case 2:
 			// 2. Remover elemento da lista
 			cout << "Insira o valor do elemento a ser removido: ";
 			cin >> valor;
-			remover(l, valor);
+			l = remover(l, valor);
 			break;
 		case 3:
 			// 3. Verificar se um elemento está na lista
@@ -221,22 +292,30 @@ void menu()
 			cin >> valor;
 			if(isHere(l, valor))
 			{
+				cout << "--------------" << endl;
 				cout << "O elemento esta na lista" << endl;
+				cout << "--------------" << endl;
 			}
 			else
 			{
-				cout << "O elemento NAO esta na lista"<< endl;
+				cout << "--------------" << endl;
+				cout << "O elemento NAO esta na lista" << endl;
+				cout << "--------------" << endl;
 			};
 			break;
 		case 4:
 			// 4. Verificar se a lista está vazia
 			if(isEmpty(l))
 			{
+				cout << "--------------" << endl;
 				cout << "A lista esta vazia" << endl;
+				cout << "--------------" << endl;
 			}
 			else
 			{
-				cout << "A lista NAO esta vazia"<< endl;
+				cout << "--------------" << endl;
+				cout << "A lista NAO esta vazia" << endl;
+				cout << "--------------" << endl;
 			};
 			break;
 		case 5:
@@ -248,14 +327,18 @@ void menu()
 			imprimirFimInicio(l);
 			break;
 		case 7:
+			cout << "--------------" << endl;
 			cout << "Tchau!" << endl;
+			cout << "--------------" << endl;
 			sair = true;
 			// 7. Sair
 			break;
 		default:
-			cout << "Opcao invalida!" << endl;
 			// Opcao invalida
-			
+			cout << "--------------" << endl;
+			cout << "Opcao invalida!" << endl;
+			cout << "--------------" << endl;
+
 			break;
 		}
 	}
@@ -263,30 +346,8 @@ void menu()
 
 int main(int argc, char** argv)
 {
-	Lista* ml = criar();
-	
-	ml = inserir(ml, 5);	
-	ml = inserir(ml, 4);	
-	ml = inserir(ml, 3);	
-	ml = inserir(ml, 7);	
-	ml = inserir(ml, 7);	
-	ml = inserir(ml, 2);
-	ml = inserir(ml, 5);
-	ml = inserir(ml, 8);
-	ml = inserir(ml, 3);
-	ml = inserir(ml, 10);
-	imprimirInicioFim(ml);
-	imprimirFimInicio(ml);
-	
-	cout << "10 esta presente? " << isHere(ml, 1) << endl;
-	
-	ml = remover(ml, 7);
-	ml = remover(ml, 5);
-	ml = remover(ml, 8);
-	ml = remover(ml, 10);
-	imprimirInicioFim(ml);
-	
+
 	menu();
-	
+
 	return 0;
 }
